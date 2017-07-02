@@ -5,7 +5,7 @@ import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.in28minutes.pringbot.web.springbootfirstwebapplication.logistics.ClockLogic;
+import com.in28minutes.springboot.web.springbootfirstwebapplication.logistics.ClockLogic;
 import com.in28minutes.springboot.web.springbootfirstwebapplication.model.Clock;
 import com.in28minutes.springboot.web.springbootfirstwebapplication.repository.ClockRepository;
 

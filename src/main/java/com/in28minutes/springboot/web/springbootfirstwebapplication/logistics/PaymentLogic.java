@@ -1,4 +1,4 @@
-package com.in28minutes.pringbot.web.springbootfirstwebapplication.logistics;
+package com.in28minutes.springboot.web.springbootfirstwebapplication.logistics;
 
 public class PaymentLogic {
 	

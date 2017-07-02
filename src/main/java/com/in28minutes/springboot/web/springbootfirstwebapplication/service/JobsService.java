@@ -3,7 +3,7 @@ package com.in28minutes.springboot.web.springbootfirstwebapplication.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.in28minutes.pringbot.web.springbootfirstwebapplication.logistics.PaymentLogic;
+import com.in28minutes.springboot.web.springbootfirstwebapplication.logistics.PaymentLogic;
 import com.in28minutes.springboot.web.springbootfirstwebapplication.model.Jobs;
 import com.in28minutes.springboot.web.springbootfirstwebapplication.repository.JobsRepository;
 

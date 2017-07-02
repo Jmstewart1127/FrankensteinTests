@@ -1,9 +1,10 @@
-package com.in28minutes.pringbot.web.springbootfirstwebapplication.security;
+package com.in28minutes.springboot.web.springbootfirstwebapplication.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.authentication.configurers.GlobalAuthenticationConfigurerAdapter;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -16,14 +17,18 @@ import javax.sql.DataSource;
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
-	@Autowired
-	private BCryptPasswordEncoder bCryptPasswordEncoder;
+    @Configuration
+    public class AuthenticationManagerConfig extends GlobalAuthenticationConfigurerAdapter {
 
-	@Autowired
-	private DataSource dataSource;
+        @Autowired
+        private DataSource dataSource;
 
-	@Value("${spring.queries.business-query}")
-	private String businessQuery;
+        @Override
+        public void init(AuthenticationManagerBuilder auth) throws Exception {
+            auth.jdbcAuthentication().dataSource(dataSource);
+        }
+    }
+
 
 		@Override
 		protected void configure(HttpSecurity http) throws Exception {
@@ -37,8 +42,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 					formLogin()
 					.loginPage("/login")
 					.failureUrl("/login?error=true")
-					.defaultSuccessUrl("/admin/home")
-					.usernameParameter("email")
+					.defaultSuccessUrl("/hello")
+					.usernameParameter("username")
 					.passwordParameter("password")
 					.and().
 					logout()
@@ -47,13 +52,4 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 					.accessDeniedPage("/access-denied");
 		}
 
-
-	@Autowired
-	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-		auth
-				.jdbcAuthentication()
-				.usersByUsernameQuery(businessQuery)
-				.dataSource(dataSource)
-				.passwordEncoder(bCryptPasswordEncoder);
-	}
 }
